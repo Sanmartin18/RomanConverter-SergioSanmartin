@@ -45,11 +45,11 @@ describe('convertToRoman invalid cases', function () {
         expect(document.getElementById('romanOutput').innerText).to.include('Error');
     });
 
-    //it('4000 should return Error', function () {
-    //    document.getElementById('integerInput').value = '4000';
-    //    convertToRoman();
-    //    expect(document.getElementById('romanOutput').innerText).to.include('Error');
-    //});
+    it('4000 should return Error', function () {
+        document.getElementById('integerInput').value = '4000';
+        convertToRoman();
+        expect(document.getElementById('romanOutput').innerText).to.include('Error');
+    });
 
     it('non-numeric input should return Error', function () {
         document.getElementById('integerInput').value = 'k';
@@ -69,11 +69,11 @@ describe('convertToRoman invalid cases', function () {
         expect(document.getElementById('romanOutput').innerText).to.include('12');
     });
 
-    //it('empty input should return Error', function () {
-    //    document.getElementById('integerInput').value = '';
-    //    convertToRoman();
-    //    expect(document.getElementById('romanOutput').innerText).to.include('Error');
-    //});
+    it('empty input should return Error', function () {
+        document.getElementById('integerInput').value = '';
+        convertToRoman();
+        expect(document.getElementById('romanOutput').innerText).to.include('Error');
+    });
 });
 
 describe('convertToInteger valid cases', function () {
@@ -128,31 +128,31 @@ describe('convertToInteger invalid cases', function () {
     });
 });
 
-//describe('regression testing', function () {
-//    it('42 should convert to XLII and back to 42', function () {
-//        document.getElementById('integerInput').value = '42';
-//        convertToRoman();
-//        const roman = document.getElementById('romanOutput').innerText;
-//        document.getElementById('romanInput').value = roman;
-//        convertToInteger();
-//        expect(document.getElementById('integerOutput').innerText).to.equal('42');
-//    });
+describe('regression testing', function () {
+    it('42 should convert to XLII and back to 42', function () {
+        document.getElementById('integerInput').value = '42';
+        convertToRoman();
+        const roman = document.getElementById('romanOutput').innerText;
+        document.getElementById('romanInput').value = roman;
+        convertToInteger();
+        expect(document.getElementById('integerOutput').innerText).to.equal('42');
+    });
 
-//    it('999 should convert to CMXCIX and back to 999', function () {
-//        document.getElementById('integerInput').value = '999';
-//        convertToRoman();
-//        const roman = document.getElementById('romanOutput').innerText;
-//        document.getElementById('romanInput').value = roman;
-//        convertToInteger();
-//        expect(document.getElementById('integerOutput').innerText).to.equal('999');
-//    });
+    it('999 should convert to CMXCIX and back to 999', function () {
+        document.getElementById('integerInput').value = '999';
+        convertToRoman();
+        const roman = document.getElementById('romanOutput').innerText;
+        document.getElementById('romanInput').value = roman;
+        convertToInteger();
+        expect(document.getElementById('integerOutput').innerText).to.equal('999');
+    });
 
-//    it('2023 should convert to MMXXIII and back to 2023', function () {
-//        document.getElementById('integerInput').value = '2023';
-//        convertToRoman();
-//        const roman = document.getElementById('romanOutput').innerText;
-//        document.getElementById('romanInput').value = roman;
-//        convertToInteger();
-//        expect(document.getElementById('integerOutput').innerText).to.equal('2023');
-//    });
-//});
+    it('2023 should convert to MMXXIII and back to 2023', function () {
+        document.getElementById('integerInput').value = '2023';
+        convertToRoman();
+        const roman = document.getElementById('romanOutput').innerText;
+        document.getElementById('romanInput').value = roman;
+        convertToInteger();
+        expect(document.getElementById('integerOutput').innerText).to.equal('2023');
+    });
+});
