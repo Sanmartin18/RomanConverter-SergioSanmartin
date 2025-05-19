@@ -28,7 +28,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Lint
-        run: node_modules/eslint/bin/eslint.js -c eslint.config.js script.js
+        run: node_modules/eslint/bin/eslint.js -c eslint.config.js test.js
         
   # name of the pipeline job
   test:
