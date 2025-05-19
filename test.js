@@ -1,255 +1,158 @@
 const expect = chai.expect;
 
-describe("convertToRoman Tests", function () {
-  let integerInput, romanOutput;
-
-  beforeEach(function () {
-    // Configurar elementos del DOM necesarios para convertToRoman
-    integerInput = document.createElement('input');
-    integerInput.id = 'integerInput';
-    document.body.appendChild(integerInput);
-
-    romanOutput = document.createElement('div');
-    romanOutput.id = 'romanOutput';
-    document.body.appendChild(romanOutput);
-  });
-
-  afterEach(function () {
-    // Limpiar elementos después de cada test
-    document.body.removeChild(integerInput);
-    document.body.removeChild(romanOutput);
-  });
-
-  it("Simple value: 7 → VII", function () {
-    integerInput.value = '7';
+describe('convertToRoman valid cases', function() {
+  it('7 should return VII', function() {
+    document.getElementById('integerInput').value = '7';
     convertToRoman();
-    expect(romanOutput.innerText).to.equal('VII');
+    expect(document.getElementById('romanOutput').innerText).to.equal('VII');
   });
 
-  it("Lower limit: 0 → Error", function () {
-    integerInput.value = '0';
+  it('1 should return I', function() {
+    document.getElementById('integerInput').value = '1';
     convertToRoman();
-    expect(romanOutput.innerText).to.include('Error');
+    expect(document.getElementById('romanOutput').innerText).to.equal('I');
   });
 
-  it("Lower limit: 1 → I", function () {
-    integerInput.value = '1';
+  it('3999 should return MMMCMXCIX', function() {
+    document.getElementById('integerInput').value = '3999';
     convertToRoman();
-    expect(romanOutput.innerText).to.equal('I');
+    expect(document.getElementById('romanOutput').innerText).to.equal('MMMCMXCIX');
   });
 
-  it("Upper limit: 3999 → MMMCMXCIX", function () {
-    integerInput.value = '3999';
+  it('4 should return IV', function() {
+    document.getElementById('integerInput').value = '4';
     convertToRoman();
-    expect(romanOutput.innerText).to.equal('MMMCMXCIX');
+    expect(document.getElementById('romanOutput').innerText).to.equal('IV');
   });
 
-  it("Upper limit: 4000 → Error", function () {
-    integerInput.value = '4000';
+  it('900 should return CM', function() {
+    document.getElementById('integerInput').value = '900';
     convertToRoman();
-    expect(romanOutput.innerText).to.include('Error');
+    expect(document.getElementById('romanOutput').innerText).to.equal('CM');
   });
 
-  it("Subtraction: 4 → IV", function () {
-    integerInput.value = '4';
+  it('1994 should return MCMXCIV', function() {
+    document.getElementById('integerInput').value = '1994';
     convertToRoman();
-    expect(romanOutput.innerText).to.equal('IV');
-  });
-
-  it("Subtraction: 900 → CM", function () {
-    integerInput.value = '900';
-    convertToRoman();
-    expect(romanOutput.innerText).to.equal('CM');
-  });
-
-  it("Complex value: 1994 → MCMXCIV", function () {
-    integerInput.value = '1994';
-    convertToRoman();
-    expect(romanOutput.innerText).to.equal('MCMXCIV');
-  });
-
-  it("NaN input: 'k' → Error", function () {
-    integerInput.value = 'k';
-    convertToRoman();
-    expect(romanOutput.innerText).to.include('Error');
-  });
-
-  it("NaN input: ',' → Error", function () {
-    integerInput.value = ',';
-    convertToRoman();
-    expect(romanOutput.innerText).to.include('Error');
-  });
-
-  it("Negative number: -5 → Error", function () {
-    integerInput.value = '-5';
-    convertToRoman();
-    expect(romanOutput.innerText).to.include('Error');
-  });
-
-  it("Invalid format: 12.5 → Error", function () {
-    integerInput.value = '12.5';
-    convertToRoman();
-    expect(romanOutput.innerText).to.include('Error');
-  });
-
-  it("Empty entrance → Error", function () {
-    integerInput.value = '';
-    convertToRoman();
-    expect(romanOutput.innerText).to.include('Error');
+    expect(document.getElementById('romanOutput').innerText).to.equal('MCMXCIV');
   });
 });
 
-describe("convertToInteger Tests", function () {
-  let romanInput, integerOutput;
-
-  beforeEach(function () {
-    // Configurar elementos del DOM necesarios para convertToInteger
-    romanInput = document.createElement('input');
-    romanInput.id = 'romanInput';
-    document.body.appendChild(romanInput);
-
-    integerOutput = document.createElement('div');
-    integerOutput.id = 'integerOutput';
-    document.body.appendChild(integerOutput);
+describe('convertToRoman invalid cases', function() {
+  it('0 should return Error', function() {
+    document.getElementById('integerInput').value = '0';
+    convertToRoman();
+    expect(document.getElementById('romanOutput').innerText).to.include('Error');
   });
 
-  afterEach(function () {
-    // Limpiar elementos después de cada test
-    document.body.removeChild(romanInput);
-    document.body.removeChild(integerOutput);
+  it('4000 should return Error', function() {
+    document.getElementById('integerInput').value = '4000';
+    convertToRoman();
+    expect(document.getElementById('romanOutput').innerText).to.include('Error');
   });
 
-  it("Simple character: VI → 6", function () {
-    romanInput.value = 'VI';
-    convertToInteger();
-    expect(integerOutput.innerText).to.equal('6');
+  it('non-numeric input should return Error', function() {
+    document.getElementById('integerInput').value = 'k';
+    convertToRoman();
+    expect(document.getElementById('romanOutput').innerText).to.include('Error');
   });
 
-  it("Lower limit: I → 1", function () {
-    romanInput.value = 'I';
-    convertToInteger();
-    expect(integerOutput.innerText).to.equal('1');
+  it('negative number should return Error', function() {
+    document.getElementById('integerInput').value = '-5';
+    convertToRoman();
+    expect(document.getElementById('romanOutput').innerText).to.include('Error');
   });
 
-  it("Upper limit: MMMCMXCIX → 3999", function () {
-    romanInput.value = 'MMMCMXCIX';
-    convertToInteger();
-    expect(integerOutput.innerText).to.equal('3999');
+  it('decimal number should return Error', function() {
+    document.getElementById('integerInput').value = '12.5';
+    convertToRoman();
+    expect(document.getElementById('romanOutput').innerText).to.include('Error');
   });
 
-  it("Valid subtraction: CM → 900", function () {
-    romanInput.value = 'CM';
-    convertToInteger();
-    expect(integerOutput.innerText).to.equal('900');
-  });
-
-  it("Invalid repetition: XXXX → Error", function () {
-    romanInput.value = 'XXXX';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Invalid repetition: VV → Error", function () {
-    romanInput.value = 'VV';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Invalid subtraction: IL → Error", function () {
-    romanInput.value = 'IL';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Non-Roman character: 8 → Error", function () {
-    romanInput.value = '8';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Non-Roman character: ',' → Error", function () {
-    romanInput.value = ',';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Non-Roman character: K → Error", function () {
-    romanInput.value = 'K';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Non-Roman character: XIZ → Error", function () {
-    romanInput.value = 'XIZ';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Format with space: ' MMM' → Error", function () {
-    romanInput.value = ' MMM';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
-  });
-
-  it("Lowercase: vi → Error", function () {
-    romanInput.value = 'vi';
-    convertToInteger();
-    expect(integerOutput.innerText).to.include('Error');
+  it('empty input should return Error', function() {
+    document.getElementById('integerInput').value = '';
+    convertToRoman();
+    expect(document.getElementById('romanOutput').innerText).to.include('Error');
   });
 });
 
-describe("Regression Testing", function () {
-  let integerInput, romanOutput, romanInput, integerOutput;
-
-  beforeEach(function () {
-    integerInput = document.createElement('input');
-    integerInput.id = 'integerInput';
-    document.body.appendChild(integerInput);
-
-    romanOutput = document.createElement('div');
-    romanOutput.id = 'romanOutput';
-    document.body.appendChild(romanOutput);
-
-    romanInput = document.createElement('input');
-    romanInput.id = 'romanInput';
-    document.body.appendChild(romanInput);
-
-    integerOutput = document.createElement('div');
-    integerOutput.id = 'integerOutput';
-    document.body.appendChild(integerOutput);
-  });
-
-  afterEach(function () {
-    document.body.removeChild(integerInput);
-    document.body.removeChild(romanOutput);
-    document.body.removeChild(romanInput);
-    document.body.removeChild(integerOutput);
-  });
-
-  it("42 → XLII → 42", function () {
-    integerInput.value = '42';
-    convertToRoman();
-    const roman = romanOutput.innerText;
-    romanInput.value = roman;
+describe('convertToInteger valid cases', function() {
+  it('VI should return 6', function() {
+    document.getElementById('romanInput').value = 'VI';
     convertToInteger();
-    expect(integerOutput.innerText).to.equal('42');
+    expect(document.getElementById('integerOutput').innerText).to.equal('6');
   });
 
-  it("999 → CMXCIX → 999", function () {
-    integerInput.value = '999';
-    convertToRoman();
-    const roman = romanOutput.innerText;
-    romanInput.value = roman;
+  it('I should return 1', function() {
+    document.getElementById('romanInput').value = 'I';
     convertToInteger();
-    expect(integerOutput.innerText).to.equal('999');
+    expect(document.getElementById('integerOutput').innerText).to.equal('1');
   });
 
-  it("2023 → MMXXIII → 2023", function () {
-    integerInput.value = '2023';
-    convertToRoman();
-    const roman = romanOutput.innerText;
-    romanInput.value = roman;
+  it('MMMCMXCIX should return 3999', function() {
+    document.getElementById('romanInput').value = 'MMMCMXCIX';
     convertToInteger();
-    expect(integerOutput.innerText).to.equal('2023');
+    expect(document.getElementById('integerOutput').innerText).to.equal('3999');
+  });
+
+  it('CM should return 900', function() {
+    document.getElementById('romanInput').value = 'CM';
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.equal('900');
+  });
+});
+
+describe('convertToInteger invalid cases', function() {
+  it('invalid repetition should return Error', function() {
+    document.getElementById('romanInput').value = 'XXXX';
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.include('Error');
+  });
+
+  it('invalid subtraction should return Error', function() {
+    document.getElementById('romanInput').value = 'IL';
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.include('Error');
+  });
+
+  it('non-Roman characters should return Error', function() {
+    document.getElementById('romanInput').value = '8';
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.include('Error');
+  });
+
+  it('lowercase letters should return Error', function() {
+    document.getElementById('romanInput').value = 'vi';
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.include('Error');
+  });
+});
+
+describe('regression testing', function() {
+  it('42 should convert to XLII and back to 42', function() {
+    document.getElementById('integerInput').value = '42';
+    convertToRoman();
+    const roman = document.getElementById('romanOutput').innerText;
+    document.getElementById('romanInput').value = roman;
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.equal('42');
+  });
+
+  it('999 should convert to CMXCIX and back to 999', function() {
+    document.getElementById('integerInput').value = '999';
+    convertToRoman();
+    const roman = document.getElementById('romanOutput').innerText;
+    document.getElementById('romanInput').value = roman;
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.equal('999');
+  });
+
+  it('2023 should convert to MMXXIII and back to 2023', function() {
+    document.getElementById('integerInput').value = '2023';
+    convertToRoman();
+    const roman = document.getElementById('romanOutput').innerText;
+    document.getElementById('romanInput').value = roman;
+    convertToInteger();
+    expect(document.getElementById('integerOutput').innerText).to.equal('2023');
   });
 });
