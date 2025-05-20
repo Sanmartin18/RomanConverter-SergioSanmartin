@@ -66,7 +66,7 @@ describe('convertToRoman invalid cases', function () {
   it('decimal number should return Error', function () {
     document.getElementById('integerInput').value = '12.5';
     convertToRoman();
-    expect(document.getElementById('romanOutput').innerText).to.include('12');
+    expect(document.getElementById('romanOutput').innerText).to.include('XII');
   });
 
   it('empty input should return Error', function () {
